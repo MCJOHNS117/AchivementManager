@@ -1,0 +1,8 @@
+c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\bin\Debug\AchievementsTest.exe.config
+c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\bin\Debug\AchievementsTest.exe
+c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\bin\Debug\AchievementsTest.pdb
+c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\bin\Debug\Achievements.dll
+c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\bin\Debug\Achievements.pdb
+c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\obj\Debug\AchievementsTest.csprojResolveAssemblyReference.cache
+c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\obj\Debug\AchievementsTest.exe
+c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\obj\Debug\AchievementsTest.pdb

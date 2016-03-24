@@ -1,0 +1,5 @@
+C:\Users\williamf\Documents\Visual Studio 2015\Projects\Achievements\Achievements\bin\Debug\Achievements.dll
+C:\Users\williamf\Documents\Visual Studio 2015\Projects\Achievements\Achievements\bin\Debug\Achievements.pdb
+C:\Users\williamf\Documents\Visual Studio 2015\Projects\Achievements\Achievements\obj\Debug\Achievements.csprojResolveAssemblyReference.cache
+C:\Users\williamf\Documents\Visual Studio 2015\Projects\Achievements\Achievements\obj\Debug\Achievements.dll
+C:\Users\williamf\Documents\Visual Studio 2015\Projects\Achievements\Achievements\obj\Debug\Achievements.pdb

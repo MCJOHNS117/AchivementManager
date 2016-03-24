@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Achievements>
+  <Achievement>
+    <Name>Winner</Name>
+    <ID>0</ID>
+    <Description>Win a single match.</Description>
+    <IconID>0</IconID>
+    <Progression>
+      <Progress ActionType = "MatchWon" RequiredValue = "1"/>
+    </Progression>
+    <Points>10</Points>
+  </Achievement>
+  <Achievement>
+    <Name>Winner II</Name>
+    <ID>1</ID>
+    <Description>Win 5 match's.</Description>
+    <IconID>1</IconID>
+    <Progression>
+      <Progress ActionType = "MatchWon" RequiredValue = "5"/>
+    </Progression>
+    <Points>20</Points>
+    <RequiredAchievement>0</RequiredAchievement>
+  </Achievement>
+  <Achievement>
+    <Name>Destroyer</Name>
+    <ID>2</ID>
+    <Description>Destroy 100 enemy ships</Description>
+    <IconID>30</IconID>
+    <Progression>
+      <Progress ActionType ="EnemyShipDestroyed" RequiredValue ="100"/>
+    </Progression>
+    <Points>10</Points>
+  </Achievement>
+  <Achievement>
+    <Name>Destroyer II</Name>
+    <ID>3</ID>
+    <Description>Destroy 1000 enemy ships</Description>
+    <IconID>31</IconID>
+    <Progression>
+      <Progress ActionType ="EnemyShipDestroyed" RequiredValue ="1000"/>
+    </Progression>
+    <Points>30</Points>
+    <RequiredAchievement>2</RequiredAchievement>
+  </Achievement>
+  <Achievement>
+    <Name>Dominator</Name>
+    <ID>4</ID>
+    <Description>Destroy 5 of the following ships:/n-Enemy A Frigates/n-Enemy B Frigates/nEnemy C Frigates</Description>
+    <IconID>17</IconID>
+    <Progression>
+      <Progress ActionType = "EnemyAFrigateDestroyed" RequiredValue = "5"/>
+      <Progress ActionType = "EnemyBFrigateDestroyed" RequiredValue = "5"/>
+      <Progress ActionType = "EnemyCFrigateDestroyed" RequiredValue = "5"/>
+    </Progression>
+    <Points>30</Points>
+  </Achievement>
+</Achievements>
