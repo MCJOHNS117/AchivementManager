@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AchievementFramework
 {
@@ -11,15 +8,21 @@ namespace AchievementFramework
 		//Name of the achievement, used to display
 		public string Name { get; }
 		//Internal achievement ID, used for storing progress
-		public int Id { get; }
+		public Guid Id { get; }
 		//Description of the achievement, used for display						
 		public string Description { get; }
+		//Category that this Achievement is a member of, used for UI
+		public string Category { get; }
+		//Subcategory that this Achievement is a member of, if empty, no subcategory is present
+		public string Subcategory { get; }
 		//Internal Icon ID, used to look-up the achievement icon			
 		public int IconId { get; }
 		//Current progress on the achievement
 		public Dictionary<string, ActionProgress> Progress { get; private set; }
 		//If this achievement requires a different achievement to activate, its ID is stored here
-		public int? RequiredAchievementId { get; }
+		public Guid? RequiredAchievementId { get; }
+		//Date this achievement was earned
+		public string DateEarned { get; }
 		//Points value of the achivement
 		public int Points { get; }
 		//True if this achievement has been unlocked already, false otherwise, 
@@ -31,8 +34,8 @@ namespace AchievementFramework
 
 		}
 
-		public Achievement(string name, int id, string description, int iconId, Dictionary<string, ActionProgress> progress,
-			int points, bool earned, int? requiredAchievementId)
+		public Achievement(string name, Guid id, string description, string category, string subcategory, int iconId, Dictionary<string, ActionProgress> progress,
+			int points, bool earned, Guid? requiredAchievementId)
 		{
 			Name = name;
 			Id = id;

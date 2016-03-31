@@ -4,6 +4,8 @@
     <Name>Winner</Name>
     <ID>0</ID>
     <Description>Win a single match.</Description>
+    <Category>Combat</Category>
+    <Subcategory>PVP</Subcategory>
     <IconID>0</IconID>
     <Progression>
       <Progress ActionType = "MatchWon" RequiredValue = "1"/>
@@ -14,6 +16,8 @@
     <Name>Winner II</Name>
     <ID>1</ID>
     <Description>Win 5 match's.</Description>
+    <Category>Combat</Category>
+    <Subcategory>PVP</Subcategory>
     <IconID>1</IconID>
     <Progression>
       <Progress ActionType = "MatchWon" RequiredValue = "5"/>
@@ -25,6 +29,8 @@
     <Name>Destroyer</Name>
     <ID>2</ID>
     <Description>Destroy 100 enemy ships</Description>
+    <Category>Combat</Category>
+    <Subcategory>General</Subcategory>
     <IconID>30</IconID>
     <Progression>
       <Progress ActionType ="EnemyShipDestroyed" RequiredValue ="100"/>
@@ -35,6 +41,8 @@
     <Name>Destroyer II</Name>
     <ID>3</ID>
     <Description>Destroy 1000 enemy ships</Description>
+    <Category>Combat</Category>
+    <Subcategory>General</Subcategory>
     <IconID>31</IconID>
     <Progression>
       <Progress ActionType ="EnemyShipDestroyed" RequiredValue ="1000"/>
@@ -46,6 +54,8 @@
     <Name>Dominator</Name>
     <ID>4</ID>
     <Description>Destroy 5 of the following ships:/n-Enemy A Frigates/n-Enemy B Frigates/nEnemy C Frigates</Description>
+    <Category>Combat</Category>
+    <Subcategory>General</Subcategory>
     <IconID>17</IconID>
     <Progression>
       <Progress ActionType = "EnemyAFrigateDestroyed" RequiredValue = "5"/>

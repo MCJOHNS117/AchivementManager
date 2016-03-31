@@ -6,3 +6,6 @@ c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\Achieve
 c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\obj\Debug\AchievementsTest.csprojResolveAssemblyReference.cache
 c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\obj\Debug\AchievementsTest.exe
 c:\users\williamf\documents\visual studio 2015\Projects\AchievementsTest\AchievementsTest\obj\Debug\AchievementsTest.pdb
+C:\Users\williamf\Documents\Visual Studio 2015\Projects\Achievements\AchivementManager\AchievementsTest\AchievementsTest\bin\Debug\AchievementsTest.exe.config
+C:\Users\williamf\Documents\Visual Studio 2015\Projects\Achievements\AchivementManager\AchievementsTest\AchievementsTest\obj\Debug\AchievementsTest.exe
+C:\Users\williamf\Documents\Visual Studio 2015\Projects\Achievements\AchivementManager\AchievementsTest\AchievementsTest\obj\Debug\AchievementsTest.pdb

@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace AchievementFramework
 {
 	/*	TODO List:
-	*	ActionListener Maitenance: Only add Achievements to the ActionListeners container when the following conditions are met
-	*		-The Achievement has not been Earned
-	*		-The Achievements RequiredAchievement has been Earned
+	*	Rewrite the load and save acievement methods to use an XmlSerializer instead of hand coding everything
 	*/
 	public static class AchievementManager
 	{
 		//Achieveents are stored by their Id
 		public static Dictionary<string, List<Achievement>> ActionListeners = new Dictionary<string, List<Achievement>>();
 
-		public static Dictionary<int, Achievement> AchievementList = new Dictionary<int, Achievement>();
+		public static Dictionary<Guid, Achievement> AchievementList = new Dictionary<Guid, Achievement>();
 
 		public static int AchievementPoints
 		{
@@ -41,15 +38,36 @@ namespace AchievementFramework
 		}
 		public static int MaxAchievementPoints { get; private set; }
 
-		private static Queue<int> QueuedCompletedAchievements = new Queue<int>();
+		private static Queue<Guid> QueuedCompletedAchievements = new Queue<Guid>();
 
 		private static bool Initialized = false;
 		public static bool ProcessingAction { get; private set; }
 
-		public delegate void AchievementComplete(int id);
+		public delegate void AchievementComplete(Guid id);
 		public static AchievementComplete NotifyOnAchievementComplete;
 
 		public static string AchievementsMasterFilename{ get; set; }
+		private static XmlDocument MasterFileDocument;
+
+		public static void CreateNewMasterFile(string path)
+		{
+			//Process the filename first to check for .xml, add if doesnt exist
+			if(Path.GetExtension(path) == string.Empty)//There is no extension
+			{
+				//add an extension on the end
+				path += ".xml";
+			}
+
+			AchievementsMasterFilename = path;
+
+			//Create a new file using the path and filename
+			File.Create(AchievementsMasterFilename);
+
+			MasterFileDocument = new XmlDocument();
+			MasterFileDocument.Load(AchievementsMasterFilename);
+			MasterFileDocument.CreateXmlDeclaration("1.0", null, null);
+			MasterFileDocument.Save(AchievementsMasterFilename);
+		}
 
 		public static void LoadAchievements(string achievementsMasterFilename, string achievementProgress)
 		{
@@ -140,7 +158,7 @@ namespace AchievementFramework
 			{
 				//Split each achievement into its raw data
 				string[] data = progress.Split(',');
-				int achievementId = Convert.ToInt32(data[0]);
+				Guid achievementId = new Guid(data[0]);
 				//determine the number of actiontypes for this achievement
 				if(data.Length > 1) //Length greater then 1 means there is progress
 				{
@@ -165,20 +183,33 @@ namespace AchievementFramework
 			}
 		}
 
+		//This method Adds and Achievement to the master file
+		public static void AddAchievment(Achievement achievement)
+		{
+			MasterFileDocument.Load(AchievementsMasterFilename);
+
+			XmlNode achivementNode = MasterFileDocument.CreateNode(XmlNodeType.Element, "Achivement", "Achievements/");
+
+			MasterFileDocument.Save(AchievementsMasterFilename);
+		}
+
+		//This method registers a single achievment with the AchievmentManager
 		private static void RegisterAchievement(XmlNode achievementNode)
 		{
 			//Pull the basics from the XML for each achievement
 			string name = achievementNode["Name"].InnerText;
-			int id = Convert.ToInt32(achievementNode["ID"].InnerText);
+			Guid id = new Guid(achievementNode["ID"].InnerText);
 			string description = achievementNode["Description"].InnerText;
+			string category = achievementNode["Category"].InnerText;
+			string subcategory = achievementNode["Subcategory"].InnerText;
 			int iconId = Convert.ToInt32(achievementNode["IconID"].InnerText);
 			int points = Convert.ToInt32(achievementNode["Points"].InnerText);
 
-			int? requiredAchievement;
+			Guid? requiredAchievement;
 
 			if(achievementNode["RequiredAchievement"] != null)
 			{
-				requiredAchievement = Convert.ToInt32(achievementNode["RequiredAchievement"].InnerText);
+				requiredAchievement = new Guid(achievementNode["RequiredAchievement"].InnerText);
 			}
 			else
 			{
@@ -213,7 +244,7 @@ namespace AchievementFramework
 				}
 			}
 
-			Achievement achievement = new Achievement(name, id, description, iconId, actionProgress, points, false, requiredAchievement);
+			Achievement achievement = new Achievement(name, id, description, category, subcategory, iconId, actionProgress, points, false, requiredAchievement);
 
 			//Add the achievement to the AchievementList if it is not already there
 			if(!AchievementList.ContainsKey(achievement.Id))
@@ -225,8 +256,6 @@ namespace AchievementFramework
 				//Can not register an achievement twice with the same ID
 				throw new IndexOutOfRangeException("AchievementList already contains Achievement ID: " + achievement.Id);
 			}
-
-			
 		}
 
 		public static string SaveAchievementProgress()
@@ -235,11 +264,13 @@ namespace AchievementFramework
 
 			foreach(Achievement achievement in AchievementList.Values)
 			{
+				//If the achievement is earned, just add its ID to the progress and move on
 				if(achievement.Earned)
 				{
 					achievementProgress += achievement.Id.ToString() + ":";
 					continue;
 				}
+				//If the achievement is not earned, we need to add each actions progress to the list
 				else
 				{
 					string actionList = "";
@@ -298,7 +329,7 @@ namespace AchievementFramework
 			//container with any achievements that may have been opened
 			while(QueuedCompletedAchievements.Count > 0)
 			{
-				int id = QueuedCompletedAchievements.Dequeue();
+				Guid id = QueuedCompletedAchievements.Dequeue();
 
 				//First remove achievement from ActionListeners
 				foreach(string actionType in AchievementList[id].Progress.Keys)
@@ -342,7 +373,7 @@ namespace AchievementFramework
 			return result;
 		}
 
-		public static bool IsAchievementEarned(int? id)
+		public static bool IsAchievementEarned(Guid? id)
 		{
 			bool result = false;
 
@@ -363,7 +394,7 @@ namespace AchievementFramework
 		}
 
 		//Used by Achievement's to notify theyre complete
-		public static void OnAchievementComplete(int id)
+		public static void OnAchievementComplete(Guid id)
 		{
 			//Add much more here to regenerate ActionListeners list
 			QueuedCompletedAchievements.Enqueue(id);
