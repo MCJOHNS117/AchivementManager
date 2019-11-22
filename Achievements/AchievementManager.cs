@@ -151,6 +151,11 @@ namespace AchievementFramework
 		*	a particular achievement has we first split the achievement using a comma ',' and count the members of the resulting string array
 		*	Then subtract 1 from that number, and divide by 2
 		*	Example: 3,EnemyShipDestroyed,745:4,EnemyAFrigateDestroyed,3,EnemyBFrigateDestroyed,5,EnemyCFrigateDestroyed,2
+		*	This translates to:
+		*	-Achievement ID 3 has an ActionType of EnemyShipDestroyed and the current progress is 745
+		*	-Achievement ID 4 has 3 ActionTypes: EnemyAFrigateDestroyed with a progress of 3
+		*					     EnemyBFrigateDestroyed with a progress of 5
+		*					     EnemyCFrigateDestroyed with a progress of 2
 		*/
 		private static void ProcessAchievementProgress(List<string> achievementsProgressData)
 		{
